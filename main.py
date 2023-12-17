@@ -65,6 +65,10 @@ def main():
                     print("Invalid choice, try again.")
                     print()
             print()
+            print("BATTLE START!")
+            print("--------------")
+            print("You are ..., your opponent is ...")
+            print()
 
 
 main()

@@ -30,6 +30,13 @@ class Stock(BaseCharacter):
     def get_name(self):
         return self.name
 
+    @staticmethod
+    def get_moveset():
+        print("1. Reload\n"
+              "2. Shoot\n"
+              "3. Block\n"
+              "4. Reflect\n")
+
     def reload(self):
         self.bullet_count += 1
         return "reload"
@@ -58,6 +65,12 @@ class Samurai(BaseCharacter):
 
     def get_name(self):
         return self.name
+
+    @staticmethod
+    def get_moveset():
+        print("1. Unsheathe Sword\n"
+              "2. Slash\n"
+              "3. Block\n")
 
     def unsheathe(self):
         self.unsheathed = True
