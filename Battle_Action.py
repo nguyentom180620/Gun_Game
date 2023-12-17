@@ -1,5 +1,6 @@
 # This contains the function in which the action of the game runs
 from character_list import *
+from random import choice
 
 p1 = Stock()
 p2 = Stock()
@@ -20,10 +21,14 @@ def battle_action(player1, player2):
             print("Your Moveset:")
             print("---------------")
             player1.get_moveset()
-            print(f"Current Bullets: {player1.get_bullet_count()}")
-            print(f"Current Number of Blocks: {player1.get_block_count()}")
+            print(f"Your Current Bullets: {player1.get_bullet_count()}")
+            print(f"Your Current Number of Blocks: {player1.get_block_count()}")
+            print()
+            print(f"Your Opponent's Bullets: {player2.get_bullet_count()}")
+            print(f"Your Opponent's Blocks: {player2.get_block_count()}")
             print()
 
+            # Player Move Selection Section
             player1_choosing = True
             while player1_choosing:
                 player_1_input = input("What will you do? ")
@@ -42,6 +47,35 @@ def battle_action(player1, player2):
                 else:
                     print("Invalid choice. Please choose again.")
                     print()
+
+            # Opponent Move Selection Section
+            if priority_list[3] == "":
+                player_2_input = "1"
+            # Here is the logic behind the "AI" moves
+            else:
+                if player2.get_bullet_count() == 0 and player2.get_block_count() != 0:
+                    player_2_input = choice(["1", "1", "1", "3", "3"])
+                elif player2.get_bullet_count() != 0 and player2.get_block_count() == 0:
+                    player_2_input = choice(["1", "1", "2", "2", "2", "2", "2", "4"])
+                elif player2.get_bullet_count() != 0 and player2.get_block_count() != 0:
+                    player_2_input = choice(
+                        ["1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "4"])
+                else:
+                    player_2_input = "1"
+
+            if player_2_input == "1":
+                priority_list[3] = player2.reload()
+            elif player_2_input == "2":
+                priority_list[3] = player2.shoot()
+            elif player_2_input == "3":
+                priority_list[3] = player2.block()
+            elif player_2_input == "4":
+                priority_list[3] = player2.reflect()
+            else:
+                print("ERROR IN AI OPPONENT PROGRAM!")
+                break
+            print(priority_list)
+            print("\n\n\n\n")
 
 
 battle_action(p1, p2)
