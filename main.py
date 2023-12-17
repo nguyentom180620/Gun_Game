@@ -26,8 +26,45 @@ def main():
             print("Invalid menu choice! Please enter a valid option.")
             print()
         else:
-            # implement after dealing with the rest of the classes
-            pass
+            # First Character Select
+            select_1_run = True
+            while select_1_run:
+                print("Select your character:")
+                print("-----------------------------------")
+                print("1. Stock")
+                print("2. Samurai")
+                print()
+                player_1_choice = input("Choice: ")
+                if player_1_choice == "1":
+                    # Here implement classes so this saves Stock as P1 choice
+                    select_1_run = False
+                elif player_1_choice == "2":
+                    # Similar here
+                    select_1_run = False
+                else:
+                    print("Invalid choice, try again.")
+                    print()
+            print()
+
+            # Second Character Select
+            select_2_run = True
+            while select_2_run:
+                print("Select your opponent's character:")
+                print("-----------------------------------")
+                print("1. Stock")
+                print("2. Samurai")
+                print()
+                player_2_choice = input("Choice: ")
+                if player_2_choice == "1":
+                    # Here implement classes so this saves Stock as P1 choice
+                    select_2_run = False
+                elif player_2_choice == "2":
+                    # Similar here
+                    select_2_run = False
+                else:
+                    print("Invalid choice, try again.")
+                    print()
+            print()
 
 
 main()
