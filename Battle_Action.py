@@ -18,6 +18,8 @@ def battle_action(player1, player2):
         if player1.get_name() == "Stock" and player2.get_name() == "Stock":
             priority_list[4] = player1.get_is_alive()
             priority_list[5] = player2.get_is_alive()
+            if not (priority_list[4] or priority_list[5]):
+                break
             print("Your Moveset:")
             print("---------------")
             player1.get_moveset()
@@ -36,14 +38,26 @@ def battle_action(player1, player2):
                     priority_list[2] = player1.reload()
                     player1_choosing = False
                 elif player_1_input == "2":
-                    priority_list[2] = player1.shoot()
-                    player1_choosing = False
+                    if player1.get_bullet_count() <= 0:
+                        print("You don't have enough bullets! Choose something else.")
+                        continue
+                    else:
+                        priority_list[2] = player1.shoot()
+                        player1_choosing = False
                 elif player_1_input == "3":
-                    priority_list[2] = player1.block()
-                    player1_choosing = False
+                    if player1.get_block_count() <= 0:
+                        print("You have 0 blocks. Choose something else.")
+                        continue
+                    else:
+                        priority_list[2] = player1.block()
+                        player1_choosing = False
                 elif player_1_input == "4":
-                    priority_list[2] = player1.reflect()
-                    player1_choosing = False
+                    if player1.get_bullet_count() <= 0:
+                        print("You don't have enough bullets! Choose something else.")
+                        continue
+                    else:
+                        priority_list[2] = player1.reflect()
+                        player1_choosing = False
                 else:
                     print("Invalid choice. Please choose again.")
                     print()
@@ -74,8 +88,40 @@ def battle_action(player1, player2):
             else:
                 print("ERROR IN AI OPPONENT PROGRAM!")
                 break
-            print(priority_list)
-            print("\n\n\n\n")
 
+            # Simple line to print action
+            print()
+            print(f"You chose to {priority_list[2]}, your opponent chose to {priority_list[3]}!")
+            print()
+
+            p1_move = priority_list[2]
+            p2_move = priority_list[3]
+            # Interactions based on indexes 2 and 3
+            if p1_move == "shoot" and p2_move == "block":
+                print("Your bullet was blocked!")
+            elif p1_move == "shoot" and p2_move == "reflect":
+                print("Your bullet was reflected!")
+                player1.die()
+            elif p2_move == "shoot" and p1_move == "block":
+                print("You blocked their bullet!")
+            elif p2_move == "shoot" and p1_move == "reflect":
+                print("You reflected their bullet!")
+                player2.die()
+            elif p1_move == "shoot" and p2_move == "shoot":
+                print("You both shot each other!")
+                player1.die()
+                player2.die()
+            elif p1_move == "shoot":
+                print("Your bullet hit them!")
+                player2.die()
+            elif p2_move == "shoot":
+                print("You were shot!")
+                player1.die()
+            else:
+                pass
+
+            print("\n\n\n\n")
+    print()
+    print('game over!')
 
 battle_action(p1, p2)

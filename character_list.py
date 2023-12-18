@@ -17,6 +17,10 @@ class BaseCharacter:
         self.block_count -= 1
         return "block"
 
+    def die(self):
+        self.is_alive = False
+        return None
+
 
 class Stock(BaseCharacter):
     def __init__(self, is_alive=True, bullets=0, blocks=5, name="Stock"):
