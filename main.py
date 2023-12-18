@@ -4,6 +4,7 @@
 # Check Gun_Game.docx for more info of project guidelines
 
 from Battle_Action import battle_action
+from wiki import wiki
 from character_list import Stock, Samurai
 
 
@@ -20,15 +21,15 @@ def main():
         print("Gun Game Menu")
         print("-----------------")
         print("1. Start Game!")
-        print("2. Character Wiki")
-        print("3. Quit")
+        print("2. Game Wiki")
+        print("0. Quit")
         print()
         menu_input = input("What would you like to do? ")
         print()
-        if menu_input == "3":
+        if menu_input == "0":
             program_running = False
         elif menu_input == "2":
-            # implement wiki class before proceeding
+            wiki()
             pass
         elif menu_input != "1":
             print("Invalid menu choice! Please enter a valid option.")
