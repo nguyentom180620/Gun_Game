@@ -2,7 +2,7 @@
 from character_list import *
 from random import choice
 
-p1 = Stock()
+p1 = Samurai()
 p2 = Samurai()
 
 
@@ -226,6 +226,7 @@ def battle_action(player1, player2):
             input("Press Enter.")
             print("\n\n\n\n\n\n\n\n")
 
+        # Stock vs Samurai
         elif player1.get_name() == "Stock" and player2.get_name() == "Samurai":
             priority_list[4] = player1.get_is_alive()
             priority_list[5] = player2.get_is_alive()
@@ -235,7 +236,7 @@ def battle_action(player1, player2):
             print("---------------")
             player1.get_moveset()
             print(f"{f"Your Current Bullets: {player1.get_bullet_count()}": <20}"
-                  f"{f"Your Opponent's Sword: {player2.get_unsheathed()}": >50}"
+                  f"{f"Your Opponent's Blade: {player2.get_unsheathed()}": >50}"
                   )
             print(f"{f"Your Current Number of Blocks: {player1.get_block_count()}": <20}"
                   f"{f"Your Opponent's Blocks: {player2.get_block_count()}": >40}")
@@ -331,6 +332,105 @@ def battle_action(player1, player2):
                 pass
             input("Press Enter.")
             print("\n\n\n\n\n\n\n\n")
+
+        # Samurai vs Samurai
+        elif player1.get_name() == "Samurai" and player2.get_name() == "Samurai":
+            priority_list[4] = player1.get_is_alive()
+            priority_list[5] = player2.get_is_alive()
+            if not (priority_list[4] and priority_list[5]):
+                break
+            print("Your Moveset:")
+            print("---------------")
+            player1.get_moveset()
+            print(f"{f"Your Blade: {player1.get_unsheathed()}": <20}"
+                  f"{f"Your Opponent's Blade: {player2.get_unsheathed()}": >50}"
+                  )
+            print(f"{f"Your Current Number of Blocks: {player1.get_block_count()}": <20}"
+                  f"{f"Your Opponent's Blocks: {player2.get_block_count()}": >40}")
+            print()
+
+            # Player Move Selection Section
+            player1_choosing = True
+            while player1_choosing:
+                player_1_input = input("What will you do? ")
+                if player_1_input == "1":
+                    priority_list[2] = player1.unsheathe()
+                    player1_choosing = False
+                elif player_1_input == "2":
+                    if player1.get_unsheathed() == "Sheathed":
+                        print("You sword is not unsheathed! Choose something else.")
+                        continue
+                    else:
+                        priority_list[2] = player1.slash()
+                        player1_choosing = False
+                elif player_1_input == "3":
+                    if player1.get_block_count() <= 0:
+                        print("You have 0 blocks. Choose something else.")
+                        continue
+                    else:
+                        priority_list[2] = player1.block()
+                        player1_choosing = False
+                else:
+                    print("Invalid choice. Please choose again.")
+                    print()
+
+            # Opponent Move Selection Section
+            if priority_list[3] == "":
+                player_2_input = "1"
+            # Here is the logic behind the "AI" moves
+            else:
+                if player2.get_unsheathed() == "Sheathed":
+                    if player2.get_block_count() == 0:
+                        player_2_input = "1"
+                    else:
+                        player_2_input = choice(["1", "3"])
+                elif player2.get_unsheathed() == "Unsheathed":
+                    if player1.get_block_count() != 0 and player1.get_unsheathed() == "Unsheathed":
+                        player_2_input = choice(["1", "2", "2", "2", "3"])
+                    elif player1.get_block_count() == 0 and player1.get_unsheathed() == "Unsheathed":
+                        player_2_input = choice(["2", "2", "3", "3"])
+                    else:
+                        player_2_input = choice(["2", "2", "3"])
+                else:
+                    player_2_input = "1"
+
+            if player_2_input == "1":
+                priority_list[3] = player2.unsheathe()
+            elif player_2_input == "2":
+                priority_list[3] = player2.slash()
+            elif player_2_input == "3":
+                priority_list[3] = player2.block()
+            else:
+                print("ERROR IN AI OPPONENT PROGRAM!")
+                break
+
+            # Simple line to print action
+            print()
+            print(f"You chose to {priority_list[2]}, your opponent chose to {priority_list[3]}!")
+            print()
+
+            p1_move = priority_list[2]
+            p2_move = priority_list[3]
+            # Interactions based on indexes 2 and 3
+            if p1_move == "slash" and p2_move == "slash":
+                print("Your blades clashed with intense ferocity!")
+            elif p1_move == "slash" and p2_move == "block":
+                print("Your opponent blocked, shattering your katana!")
+                player1.shatter()
+            elif p1_move == "block" and p2_move == "slash":
+                print("You blocked, shattering your opponent's katana!")
+                player2.shatter()
+            elif p1_move == "slash":
+                print("You sliced through your opponent!")
+                player2.die()
+            elif p2_move == "slash":
+                print("You were sliced in half!")
+                player1.die()
+            else:
+                pass
+            input("Press Enter.")
+            print("\n\n\n\n\n\n\n\n")
+
     print()
     if not (priority_list[4] or priority_list[5]):
         print("Draw. Noone wins.")
