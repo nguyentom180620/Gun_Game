@@ -17,7 +17,7 @@ def main():
     p2_score = 0
     while program_running:
         if p1_score or p2_score != 0:
-            print(f"Your Score: {p1_score}, AI Score: {p2_score}")
+            print(f"Your Score: {p1_score}, AI Score: {p2_score}, Win Rate: {int(p1_score/(p1_score+p2_score)*100)}%")
         print("Gun Game Menu")
         print("-----------------")
         print("1. Start Game!")
