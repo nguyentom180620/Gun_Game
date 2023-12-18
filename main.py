@@ -74,7 +74,7 @@ def main():
             print()
             print("BATTLE START!")
             print("--------------")
-            print("You are ..., your opponent is ...")
+            print(f"You are {p1.get_name()}, your opponent is {p2.get_name()}")
             print()
             battle_action(p1, p2)
 
