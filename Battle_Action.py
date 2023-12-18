@@ -18,16 +18,16 @@ def battle_action(player1, player2):
         if player1.get_name() == "Stock" and player2.get_name() == "Stock":
             priority_list[4] = player1.get_is_alive()
             priority_list[5] = player2.get_is_alive()
-            if not (priority_list[4] or priority_list[5]):
+            if not (priority_list[4] and priority_list[5]):
                 break
             print("Your Moveset:")
             print("---------------")
             player1.get_moveset()
-            print(f"Your Current Bullets: {player1.get_bullet_count()}")
-            print(f"Your Current Number of Blocks: {player1.get_block_count()}")
-            print()
-            print(f"Your Opponent's Bullets: {player2.get_bullet_count()}")
-            print(f"Your Opponent's Blocks: {player2.get_block_count()}")
+            print(f"{f"Your Current Bullets: {player1.get_bullet_count()}": <20}"
+                  f"{f"Your Opponent's Bullets: {player2.get_bullet_count()}": >50}"
+                  )
+            print(f"{f"Your Current Number of Blocks: {player1.get_block_count()}": <20}"
+                  f"{f"Your Opponent's Blocks: {player2.get_block_count()}": >40}")
             print()
 
             # Player Move Selection Section
@@ -119,9 +119,20 @@ def battle_action(player1, player2):
                 player1.die()
             else:
                 pass
+            input("Press Enter.")
 
             print("\n\n\n\n")
     print()
-    print('game over!')
+    if not (priority_list[4] or priority_list[5]):
+        print("Draw. Noone wins.")
+    elif not priority_list[4]:
+        print("You lose! GG!")
+    elif not priority_list[5]:
+        print("You won the duel!")
+    else:
+        pass
+    print()
 
-battle_action(p1, p2)
+
+if __name__ == "__main__":
+    battle_action(p1, p2)

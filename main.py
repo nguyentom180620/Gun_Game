@@ -3,6 +3,10 @@
 # By Tom Nguyen
 # Check Gun_Game.docx for more info of project guidelines
 
+from Battle_Action import battle_action
+from character_list import Stock, Samurai
+
+
 def main():
     print("Welcome to Gun Game!")
     print()
@@ -37,6 +41,7 @@ def main():
                 player_1_choice = input("Choice: ")
                 if player_1_choice == "1":
                     # Here implement classes so this saves Stock as P1 choice
+                    p1 = Stock()
                     select_1_run = False
                 elif player_1_choice == "2":
                     # Similar here
@@ -57,6 +62,7 @@ def main():
                 player_2_choice = input("Choice: ")
                 if player_2_choice == "1":
                     # Here implement classes so this saves Stock as P1 choice
+                    p2 = Stock()
                     select_2_run = False
                 elif player_2_choice == "2":
                     # Similar here
@@ -65,10 +71,12 @@ def main():
                     print("Invalid choice, try again.")
                     print()
             print()
+            print()
             print("BATTLE START!")
             print("--------------")
             print("You are ..., your opponent is ...")
             print()
+            battle_action(p1, p2)
 
 
 main()
