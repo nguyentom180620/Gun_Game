@@ -12,7 +12,11 @@ def main():
     print()
     # First while loop for menu
     program_running = True
+    p1_score = 0
+    p2_score = 0
     while program_running:
+        if p1_score or p2_score != 0:
+            print(f"Your Score: {p1_score}, AI Score: {p2_score}")
         print("Gun Game Menu")
         print("-----------------")
         print("1. Start Game!")
@@ -44,7 +48,7 @@ def main():
                     p1 = Stock()
                     select_1_run = False
                 elif player_1_choice == "2":
-                    # Similar here
+                    p1 = Samurai()
                     select_1_run = False
                 else:
                     print("Invalid choice, try again.")
@@ -61,11 +65,10 @@ def main():
                 print()
                 player_2_choice = input("Choice: ")
                 if player_2_choice == "1":
-                    # Here implement classes so this saves Stock as P1 choice
                     p2 = Stock()
                     select_2_run = False
                 elif player_2_choice == "2":
-                    # Similar here
+                    p2 = Samurai()
                     select_2_run = False
                 else:
                     print("Invalid choice, try again.")
@@ -76,7 +79,15 @@ def main():
             print("--------------")
             print(f"You are {p1.get_name()}, your opponent is {p2.get_name()}")
             print()
-            battle_action(p1, p2)
+            result = battle_action(p1, p2)
+            if result == "Draw":
+                pass
+            elif result == "P1 Win":
+                p1_score += 1
+            elif result == "P2 Win":
+                p2_score += 1
+            else:
+                pass
 
 
 main()

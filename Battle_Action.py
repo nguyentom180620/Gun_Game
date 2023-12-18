@@ -125,13 +125,18 @@ def battle_action(player1, player2):
     print()
     if not (priority_list[4] or priority_list[5]):
         print("Draw. Noone wins.")
+        print("\n\n\n\n")
+        return "Draw"
     elif not priority_list[4]:
         print("You lose! GG!")
+        print("\n\n\n\n")
+        return "P2 Win"
     elif not priority_list[5]:
         print("You won the duel!")
+        print("\n\n\n\n")
+        return "P1 Win"
     else:
         pass
-    print()
 
 
 if __name__ == "__main__":
