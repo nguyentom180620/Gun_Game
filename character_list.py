@@ -65,7 +65,9 @@ class Samurai(BaseCharacter):
         self.name = name
 
     def get_unsheathed(self):
-        return self.unsheathed
+        if self.unsheathed:
+            return "Unsheathed"
+        return "Sheathed"
 
     def get_name(self):
         return self.name
@@ -84,3 +86,6 @@ class Samurai(BaseCharacter):
         if not self.unsheathed:
             return "failed slash"
         return "slash"
+
+    def shatter(self):
+        self.unsheathed = False
