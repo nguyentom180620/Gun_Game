@@ -66,10 +66,10 @@ def main():
                 print()
                 player_2_choice = input("Choice: ")
                 if player_2_choice == "1":
-                    p2 = Stock()
+                    p2 = Stock(position=1)
                     select_2_run = False
                 elif player_2_choice == "2":
-                    p2 = Samurai()
+                    p2 = Samurai(position=1)
                     select_2_run = False
                 else:
                     print("Invalid choice, try again.")

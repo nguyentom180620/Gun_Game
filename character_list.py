@@ -1,15 +1,23 @@
 # Contains all playable characters as classes
 # BaseCharacter demonstrates practice in class inheritance
 class BaseCharacter:
-    def __init__(self, is_alive=True, blocks=5):
+    def __init__(self, is_alive=True, blocks=5, position=0, name="Bob"):
         self.is_alive = is_alive
         self.block_count = blocks
+        self.position = position
+        self.name = name
 
     def get_is_alive(self):
         return self.is_alive
 
+    def get_name(self):
+        return self.name
+
     def get_block_count(self):
         return self.block_count
+
+    def get_position(self):
+        return self.position
 
     def block(self):
         if self.block_count <= 0:
@@ -22,24 +30,13 @@ class BaseCharacter:
         return None
 
 
-class Stock(BaseCharacter):
-    def __init__(self, is_alive=True, bullets=0, blocks=5, name="Stock"):
-        super().__init__(is_alive, blocks)
+class RangedCharacter(BaseCharacter):
+    def __init__(self, bullets=0):
+        super().__init__()
         self.bullet_count = bullets
-        self.name = name
 
     def get_bullet_count(self):
         return self.bullet_count
-
-    def get_name(self):
-        return self.name
-
-    @staticmethod
-    def get_moveset():
-        print("1. Reload\n"
-              "2. Shoot\n"
-              "3. Block\n"
-              "4. Reflect\n")
 
     def reload(self):
         self.bullet_count += 1
@@ -51,6 +48,19 @@ class Stock(BaseCharacter):
         self.bullet_count -= 1
         return "shoot"
 
+
+class Stock(RangedCharacter):
+    def __init__(self, name="Stock"):
+        super().__init__()
+        self.name = name
+
+    @staticmethod
+    def get_moveset():
+        print("1. Reload\n"
+              "2. Shoot\n"
+              "3. Block\n"
+              "4. Reflect\n")
+
     def reflect(self):
         if self.bullet_count <= 0:
             return "failed reflect"
@@ -59,8 +69,8 @@ class Stock(BaseCharacter):
 
 
 class Samurai(BaseCharacter):
-    def __init__(self, is_alive=True, unsheathed=False, blocks=5, name="Samurai"):
-        super().__init__(is_alive, blocks)
+    def __init__(self, unsheathed=False, name="Samurai"):
+        super().__init__()
         self.unsheathed = unsheathed
         self.name = name
 
@@ -68,9 +78,6 @@ class Samurai(BaseCharacter):
         if self.unsheathed:
             return "Unsheathed"
         return "Sheathed"
-
-    def get_name(self):
-        return self.name
 
     @staticmethod
     def get_moveset():
@@ -89,3 +96,48 @@ class Samurai(BaseCharacter):
 
     def shatter(self):
         self.unsheathed = False
+
+
+class Sniper(RangedCharacter):
+    def __init__(self, grapple=True, aiming=False, bullets=1, name="Sniper"):
+        super().__init__()
+        self.grapple = grapple
+        self.aiming = aiming
+        self.bullet_count = bullets
+        self.name = name
+
+    def get_grapple_status(self):
+        return self.grapple
+
+    def get_aiming_status(self):
+        return self.aiming
+
+    @staticmethod
+    def get_moveset():
+        print("1. Reload Rifle + Grapple Hook\n"
+              "2. Aim\n"
+              "3. Shoot\n"
+              "4. Grapple Away\n"
+              "5. Block\n")
+
+    def reload(self):
+        self.grapple = True
+        self.bullet_count += 1
+        return "reload"
+
+    def aim(self):
+        self.aiming = True
+        return "aiming"
+
+    def shoot(self):
+        if self.get_aiming_status():
+            if self.bullet_count <= 0:
+                return "failed shoot (bullet count)"
+            self.bullet_count -= 1
+            return "shoot"
+        return "failed shoot (not aiming)"
+
+    def grapple_away(self):
+        if self.get_grapple_status():
+            return "grapple"
+        return "failed grapple"
