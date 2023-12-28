@@ -3,8 +3,9 @@ from character_list import *
 from random import choice
 from stock_file import *
 from samurai_file import *
+from sniper_file import *
 
-p1 = Stock()
+p1 = Sniper()
 p2 = Stock()
 
 
@@ -55,6 +56,7 @@ def battle_action(player1, player2):
 
     while battle_running:
         match player1.get_name(), player2.get_name():
+
             # Stock vs Stock
             case "Stock", "Stock":
                 if check_if_alive(priority_list, player1, player2):
@@ -138,6 +140,14 @@ def battle_action(player1, player2):
                 # Interactions based on indexes 2 and 3
                 samurai_vs_samurai_interactions(p1_move, p2_move, player1, player2)
                 load_next_page()
+
+            # Sniper vs Stock
+            case "Sniper", "Stock":
+                if check_if_alive(priority_list, player1, player2):
+                    break
+                print_sniper_v_stock_moveset(player1, player2)
+
+                # Player Move Selection Section
 
             case _:
                 print("Oh no, invalid classes! Or something else went wrong :[")

@@ -50,8 +50,9 @@ class RangedCharacter(BaseCharacter):
 
 
 class Stock(RangedCharacter):
-    def __init__(self, name="Stock"):
+    def __init__(self, position=0, name="Stock"):
         super().__init__()
+        self.position = position
         self.name = name
 
     @staticmethod
@@ -69,8 +70,9 @@ class Stock(RangedCharacter):
 
 
 class Samurai(BaseCharacter):
-    def __init__(self, unsheathed=False, name="Samurai"):
+    def __init__(self, position=0, unsheathed=False, name="Samurai"):
         super().__init__()
+        self.position = position
         self.unsheathed = unsheathed
         self.name = name
 
@@ -99,18 +101,23 @@ class Samurai(BaseCharacter):
 
 
 class Sniper(RangedCharacter):
-    def __init__(self, grapple=True, aiming=False, bullets=1, name="Sniper"):
+    def __init__(self, position=0, grapple=True, aiming=False, bullets=1, name="Sniper"):
         super().__init__()
+        self.position = position
         self.grapple = grapple
         self.aiming = aiming
         self.bullet_count = bullets
         self.name = name
 
     def get_grapple_status(self):
-        return self.grapple
+        if self.grapple:
+            return "Loaded"
+        return "Unloaded"
 
     def get_aiming_status(self):
-        return self.aiming
+        if self.aiming:
+            return "Yes"
+        return "No"
 
     @staticmethod
     def get_moveset():
@@ -138,6 +145,10 @@ class Sniper(RangedCharacter):
         return "failed shoot (not aiming)"
 
     def grapple_away(self):
-        if self.get_grapple_status():
+        if self.grapple:
+            if self.position <= 0:
+                self.position -= 1
+            else:
+                self.position += 1
             return "grapple"
         return "failed grapple"
