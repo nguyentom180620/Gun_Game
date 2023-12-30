@@ -5,7 +5,7 @@
 
 from Battle_Action import battle_action
 from wiki import wiki
-from character_list import Stock, Samurai
+from character_list import Stock, Samurai, Sniper
 
 
 def main():
@@ -42,6 +42,7 @@ def main():
                 print("-----------------------------------")
                 print("1. Stock")
                 print("2. Samurai")
+                print("3. Sniper")
                 print()
                 player_1_choice = input("Choice: ")
                 if player_1_choice == "1":
@@ -50,6 +51,9 @@ def main():
                     select_1_run = False
                 elif player_1_choice == "2":
                     p1 = Samurai()
+                    select_1_run = False
+                elif player_1_choice == "3":
+                    p1 = Sniper()
                     select_1_run = False
                 else:
                     print("Invalid choice, try again.")
@@ -63,6 +67,7 @@ def main():
                 print("-----------------------------------")
                 print("1. Stock")
                 print("2. Samurai")
+                print("3. Sniper")
                 print()
                 player_2_choice = input("Choice: ")
                 if player_2_choice == "1":
@@ -70,6 +75,9 @@ def main():
                     select_2_run = False
                 elif player_2_choice == "2":
                     p2 = Samurai(position=1)
+                    select_2_run = False
+                elif player_2_choice == "3":
+                    p2 = Sniper(position=1)
                     select_2_run = False
                 else:
                     print("Invalid choice, try again.")

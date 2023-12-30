@@ -134,21 +134,23 @@ class Sniper(RangedCharacter):
 
     def aim(self):
         self.aiming = True
-        return "aiming"
+        return "aim"
 
     def shoot(self):
-        if self.get_aiming_status():
+        if self.aiming:
             if self.bullet_count <= 0:
-                return "failed shoot (bullet count)"
+                return "failed to shoot! (bullet count)"
             self.bullet_count -= 1
             return "shoot"
-        return "failed shoot (not aiming)"
+        return "failed to shoot! (not aiming)"
 
     def grapple_away(self):
         if self.grapple:
             if self.position <= 0:
                 self.position -= 1
+                self.grapple = False
             else:
                 self.position += 1
+                self.grapple = False
             return "grapple"
         return "failed grapple"

@@ -128,6 +128,49 @@ def player_2_samurai_vs_stock_ai(player2, prio_list, player1):
         print("ERROR IN AI OPPONENT PROGRAM!")
 
 
+# Player 2 Stock vs Player 1 Sniper AI
+def player_2_sniper_vs_stock_ai(player2, prio_list, player1):
+    if prio_list[3] == "":
+        player_2_input = "1"
+    else:
+        if player1.get_block_count() == 0:
+            if player1.get_aiming_status() == "Yes" and player1.get_bullet_count() != 0:
+                if player2.get_bullet_count() == 0 and player2.get_block_count() != 0:
+                    player_2_input = choice(["1", "3"])
+                elif player2.get_bullet_count() == 0 and player2.get_block_count() == 0:
+                    player_2_input = "1"
+                else:
+                    player_2_input = choice(["1", "2", "2", "4"])
+            else:
+                if player2.get_bullet_count() == 0:
+                    player_2_input = "1"
+                else:
+                    player_2_input = "2"
+        elif player1.get_aiming_status() == "Yes" and player1.get_bullet_count() != 0:
+            if player2.get_bullet_count() == 0 and player2.get_block_count() != 0:
+                player_2_input = choice(["1", "3"])
+            elif player2.get_bullet_count() == 0 and player2.get_block_count() == 0:
+                player_2_input = "1"
+            else:
+                player_2_input = choice(["1", "2", "3", "4"])
+        else:
+            if player2.get_bullet_count() == 0:
+                player_2_input = "1"
+            else:
+                player_2_input = choice(["2", "2", "2", "1"])
+
+    if player_2_input == "1":
+        prio_list[3] = player2.reload()
+    elif player_2_input == "2":
+        prio_list[3] = player2.shoot()
+    elif player_2_input == "3":
+        prio_list[3] = player2.block()
+    elif player_2_input == "4":
+        prio_list[3] = player2.reflect()
+    else:
+        print("ERROR IN AI OPPONENT PROGRAM!")
+
+
 # Stock vs Stock Interactions
 def stock_vs_stock_interactions(p1_move, p2_move, player1, player2):
     if p1_move == "shoot" and p2_move == "block":
@@ -154,6 +197,7 @@ def stock_vs_stock_interactions(p1_move, p2_move, player1, player2):
         pass
 
 
+# Stock vs Samurai Interactions
 def stock_vs_samurai_interactions(p1_move, p2_move, player1, player2):
     if p2_move == "slash" and p1_move == "shoot":
         print("Your bullet was cut! You were sliced!")
