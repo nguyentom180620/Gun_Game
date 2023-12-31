@@ -6,7 +6,7 @@ from samurai_file import *
 from sniper_file import *
 
 p1 = Sniper()
-p2 = Stock(position=1)
+p2 = Sniper(position=1)
 
 
 def check_if_alive(prio_list, player1, player2):
@@ -162,8 +162,51 @@ def battle_action(player1, player2):
                 sniper_vs_stock_interactions(p1_move, p2_move, player1, player2)
                 load_next_page()
 
+            # Sniper vs Samurai
+            case "Sniper", "Samurai":
+                if check_if_alive(priority_list, player1, player2):
+                    break
+                print_sniper_v_samurai_moveset(player1, player2)
+
+                # Opponent Move Selection Section
+                player_2_sniper_vs_samurai_ai(player2, priority_list, player1)
+
+                # Player Move Selection Section
+                player_1_sniper_choice(player1, priority_list)
+
+                # Simple line to print action
+                print_action(priority_list)
+
+                p1_move = priority_list[2]
+                p2_move = priority_list[3]
+                # Interactions based on indexes 2 and 3
+                sniper_vs_samurai_interactions(p1_move, p2_move, player1, player2)
+                load_next_page()
+
+            # Sniper vs Samurai
+            case "Sniper", "Sniper":
+                if check_if_alive(priority_list, player1, player2):
+                    break
+                print_sniper_v_sniper_moveset(player1, player2)
+
+                # Opponent Move Selection Section
+                player_2_sniper_vs_sniper_ai(player2, priority_list, player1)
+
+                # Player Move Selection Section
+                player_1_sniper_choice(player1, priority_list)
+
+                # Simple line to print action
+                print_action(priority_list)
+
+                p1_move = priority_list[2]
+                p2_move = priority_list[3]
+                # Interactions based on indexes 2 and 3
+                sniper_vs_sniper_interactions(p1_move, p2_move, player1, player2)
+                load_next_page()
+
             case _:
-                print("Oh no, invalid classes! Or something else went wrong :[")
+                print("Oh no, this battle isn't implemented yet! Or something else went wrong :[")
+                return False
     result = check_winner(priority_list)
     return result
 

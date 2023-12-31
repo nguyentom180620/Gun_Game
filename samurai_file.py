@@ -119,6 +119,50 @@ def player_2_samurai_vs_samurai_ai(player2, prio_list, player1):
         print("ERROR IN AI OPPONENT PROGRAM!")
 
 
+# Player 2 Samurai vs Player 1 Sniper AI
+def player_2_sniper_vs_samurai_ai(player2, prio_list, player1):
+    if prio_list[3] == "":
+        player_2_input = "1"
+    else:
+        if player1.get_block_count() == 0:
+            if player1.get_aiming_status() == "Yes" and player1.get_bullet_count() != 0:
+                if player2.get_unsheathed() == "Sheathed" and player2.get_block_count() != 0:
+                    player_2_input = choice(["1", "3"])
+                elif player2.get_unsheathed() == "Sheathed" and player2.get_block_count() == 0:
+                    player_2_input = "1"
+                else:
+                    player_2_input = choice(["1", "2", "2", "3"])
+            else:
+                if player2.get_unsheathed() == "Sheathed":
+                    player_2_input = "1"
+                else:
+                    player_2_input = "2"
+        elif player1.get_aiming_status() == "Yes" and player1.get_bullet_count() != 0:
+            if player2.get_unsheathed() == "Sheathed" and player2.get_block_count() != 0:
+                player_2_input = choice(["1", "3"])
+            elif player2.get_unsheathed() == "Sheathed" and player2.get_block_count() == 0:
+                player_2_input = "1"
+            else:
+                player_2_input = choice(["1", "2", "3", "3", "3", "3"])
+        else:
+            if player2.get_unsheathed() == "Sheathed":
+                player_2_input = "1"
+            else:
+                player_2_input = choice(["2", "2", "2", "1"])
+
+    if player_2_input == "1":
+        prio_list[3] = player2.unsheathe()
+    elif player_2_input == "2":
+        prio_list[3] = player2.slash()
+        # melee attacks get samurai closer to the sniper
+        if player1.position < player2.position:
+            player2.position -= 1
+    elif player_2_input == "3":
+        prio_list[3] = player2.block()
+    else:
+        print("ERROR IN AI OPPONENT PROGRAM!")
+
+
 # Samurai vs Stock Interactions
 def samurai_vs_stock_interactions(p1_move, p2_move, player1, player2):
     if p1_move == "slash" and p2_move == "shoot":
