@@ -148,6 +148,127 @@ def player_2_sniper_vs_sniper_ai(player2, prio_list, player1):
         print("ERROR IN AI OPPONENT PROGRAM!")
 
 
+# Player 2 Sniper vs Player 1 Stock AI
+def player_2_stock_vs_sniper_ai(player2, prio_list, player1):
+    if prio_list[3] == "":
+        player_2_input = "4"
+    else:
+        if player2.get_position() - player1.get_position() >= 4:
+            if player2.get_aiming_status() == "No":
+                player_2_input = "2"
+            elif player2.get_bullet_count() == 0:
+                player_2_input = "1"
+            else:
+                if player1.get_bullet_count() == 0:
+                    player_2_input = choice(["2", "3", "3"])
+                elif player2.get_bullet_count() > player1.get_block_count():
+                    if player1.get_bullet_count() == 0:
+                        player_2_input = "3"
+                    else:
+                        player_2_input = choice(["2", "2", "3"])
+                else:
+                    player_2_input = choice(["2", "2", "3"])
+        elif player1.get_bullet_count() != 0:
+            if player2.get_grapple_status() == "Loaded" and player2.get_position() - player1.get_position() == 3:
+                player_2_input = "4"
+            elif player2.get_block_count() == 0:
+                if player2.get_grapple_status() == "Unloaded":
+                    player_2_input = "1"
+                else:
+                    player_2_input = "4"
+            elif player2.get_grapple_status() == "Unloaded":
+                player_2_input = choice(["1", "5"])
+            else:
+                player_2_input = choice(["4", "5"])
+        else:
+            if player2.get_grapple_status() == "Unloaded":
+                player_2_input = "1"
+            else:
+                player_2_input = "4"
+
+    if player_2_input == "1":
+        prio_list[3] = player2.reload()
+        player2.aiming = False
+    elif player_2_input == "2":
+        prio_list[3] = player2.aim()
+    elif player_2_input == "3":
+        prio_list[3] = player2.shoot()
+    elif player_2_input == "4":
+        prio_list[3] = player2.grapple_away()
+        player2.aiming = False
+    elif player_2_input == "5":
+        prio_list[3] = player2.block()
+        player2.aiming = False
+    else:
+        print("ERROR IN AI OPPONENT PROGRAM!")
+
+
+# Player 2 Sniper vs Player 1 Stock AI
+def player_2_samurai_vs_sniper_ai(player2, prio_list, player1):
+    # TODO Make this AI by considering how sniper should play against samurai, then do wiki, then work on GUI
+    if prio_list[3] == "":
+        player_2_input = "4"
+    else:
+        if player1.get_block_count() == 0 and player2.get_aiming_status() == "Yes" and player2.get_bullet_count() != 0:
+            player_2_input = "3"
+        if player2.get_position() - player1.get_position() >= 2:
+            if player2.get_aiming_status() == "No":
+                player_2_input = "2"
+            elif player2.get_bullet_count() == 0:
+                player_2_input = "1"
+            else:
+                if player1.get_unsheathed() == "Sheathed":
+                    player_2_input = choice(["2", "3", "3"])
+                elif player2.get_bullet_count() > player1.get_block_count():
+                    player_2_input = "3"
+                else:
+                    player_2_input = choice(["2", "3"])
+        else:
+            if player1.get_unsheathed() == "Sheathed":
+                if player2.get_grapple_status() == "Loaded" and player2.get_position() - player1.get_position() >= 1:
+                    player_2_input = "4"
+                elif player2.get_bullet_count() > 0 and player2.get_aiming_status() == "Yes":
+                    player_2_input = choice(["2", "3"])
+                elif player2.get_bullet_count() > 0 and player2.get_aiming_status() == "No":
+                    player_2_input = "2"
+                else:
+                    player_2_input = "1"
+            elif player1.get_unsheathed() == "Unsheathed":
+                if player2.get_grapple_status() == "Loaded" and player2.get_position() - player1.get_position() >= 1:
+                    player_2_input = "4"
+                elif player2.get_bullet_count() > 0 and player2.get_aiming_status() == "Yes":
+                    player_2_input = choice(["2", "3"])
+                elif player2.get_block_count() == 0:
+                    if player2.get_bullet_count() > 0 and player2.get_aiming_status() == "No":
+                        player_2_input = "2"
+                    elif player2.get_bullet_count() == 0:
+                        player_2_input = "1"
+                    else:
+                        player_2_input = "3"
+                elif player2.get_bullet_count() > 0 and player2.get_aiming_status() == "No":
+                    player_2_input = choice(["2", "5", "5", "5", "5", "5"])
+                else:
+                    player_2_input = choice(["1", "5", "5", "5", "5", "5"])
+            else:
+                pass
+
+    if player_2_input == "1":
+        prio_list[3] = player2.reload()
+        player2.aiming = False
+    elif player_2_input == "2":
+        prio_list[3] = player2.aim()
+    elif player_2_input == "3":
+        prio_list[3] = player2.shoot()
+    elif player_2_input == "4":
+        prio_list[3] = player2.grapple_away()
+        player2.aiming = False
+    elif player_2_input == "5":
+        prio_list[3] = player2.block()
+        player2.aiming = False
+    else:
+        print("ERROR IN AI OPPONENT PROGRAM!")
+
+
 # Sniper vs Stock Interactions
 def sniper_vs_stock_interactions(p1_move, p2_move, player1, player2):
     if player2.get_position() - player1.get_position() >= 4:

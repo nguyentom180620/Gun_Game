@@ -32,6 +32,7 @@ To learn about each character, how about checking out the Characters section in 
                 print("-----------")
                 print("1. Stock")
                 print("2. Samurai")
+                print("3. Sniper")
                 print("0. Exit")
                 print()
                 chara_input = input("Who would you like to look into? ")
@@ -67,6 +68,22 @@ the Samurai will need to take their sword out of their sheathe again. Don't worr
 because the blade will instantly regenerate into the sheathe once it is broken!
 
 \"Everyone feels fear. What a samurai is, is what you do when you feel fear.\" - Enson Inoue''')
+                    print()
+                elif chara_input == "3":
+                    print('''Sniper:
+The cool ranged character where distance matters! Make distance to out range
+other ranged characters, or control the flow of battle by aiming down your sight
+onto melee characters!
+
+The Sniper starts with their grapple and one bullet loaded. This lets you choose
+to either aim or grapple first turn. The sniper has to aim before being able to
+shoot, but can hold aim to bait out blocks and can continuously fire while aiming.
+Doing other actions will stop aiming. The grapple increases distance between the
+two characters by 1, however melee attack are like dashes and reduce distance, so
+be careful managing distance. Finally, vs ranged characters, reaching a distance
+of 4 units puts you out of range of their attacks, making it easy pickings to snipe!
+
+Sniper is all about patience.''')
                     print()
                 else:
                     print("Invalid choice, please try again.")

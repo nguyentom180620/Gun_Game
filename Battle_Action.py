@@ -204,6 +204,48 @@ def battle_action(player1, player2):
                 sniper_vs_sniper_interactions(p1_move, p2_move, player1, player2)
                 load_next_page()
 
+            # Stock vs Sniper
+            case "Stock", "Sniper":
+                if check_if_alive(priority_list, player1, player2):
+                    break
+                print_stock_v_sniper_moveset(player1, player2)
+
+                # Opponent Move Selection Section
+                player_2_stock_vs_sniper_ai(player2, priority_list, player1)
+
+                # Player Move Selection Section
+                player_1_stock_choice(player1, priority_list)
+
+                # Simple line to print action
+                print_action(priority_list)
+
+                p1_move = priority_list[2]
+                p2_move = priority_list[3]
+                # Interactions based on indexes 2 and 3
+                stock_vs_sniper_interactions(p1_move, p2_move, player1, player2)
+                load_next_page()
+
+            # Samurai vs Sniper
+            case "Samurai", "Sniper":
+                if check_if_alive(priority_list, player1, player2):
+                    break
+                print_samurai_v_sniper_moveset(player1, player2)
+
+                # Opponent Move Selection Section
+                player_2_samurai_vs_sniper_ai(player2, priority_list, player1)
+
+                # Player Move Selection Section
+                player_1_samurai_choice(player1, priority_list, player2)
+
+                # Simple line to print action
+                print_action(priority_list)
+
+                p1_move = priority_list[2]
+                p2_move = priority_list[3]
+                # Interactions based on indexes 2 and 3
+                samurai_vs_sniper_interactions(p1_move, p2_move, player1, player2)
+                load_next_page()
+
             case _:
                 print("Oh no, this battle isn't implemented yet! Or something else went wrong :[")
                 return False

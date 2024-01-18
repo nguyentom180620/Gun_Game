@@ -28,6 +28,26 @@ def print_stock_v_samurai_moveset(player1, player2):
     print()
 
 
+# For stock vs sniper moveset print
+def print_stock_v_sniper_moveset(player1, player2):
+    print("Your Moveset:")
+    print("---------------")
+    player1.get_moveset()
+    print(f"{f"Your Current Bullets: {player1.get_bullet_count()}": <20}"
+          f"{f"Your Opponent's Bullets: {player2.get_bullet_count()}": >50}"
+          )
+    print(f"{f"Your Current Number of Blocks: {player1.get_block_count()}": <20}"
+          f"{f"Your Opponent's Blocks: {player2.get_block_count()}": >40}")
+    print()
+    print("Sniper Specifics")
+    print("-----------------")
+    print(f"Your Opponent's Grapple Hook: {player2.get_grapple_status()}")
+    print(f"Opponent Scoped?: {player2.get_aiming_status()}")
+    print(f"Distance from You: {player2.get_position() - player1.get_position()} units")
+    if player2.get_position() - player1.get_position() >= 4: print(f"(Sniping Range!)")
+    print()
+
+
 # For player 1 choice when player 1 is Stock
 def player_1_stock_choice(player1, prio_list):
     player1_choosing = True
@@ -212,6 +232,42 @@ def stock_vs_samurai_interactions(p1_move, p2_move, player1, player2):
         player2.die()
     elif p2_move == "slash":
         print("You were sliced in half!")
+        player1.die()
+    else:
+        pass
+
+
+# Stock vs Sniper Interactions
+def stock_vs_sniper_interactions(p1_move, p2_move, player1, player2):
+    if player2.get_position() - player1.get_position() >= 4:
+        if p2_move == "shoot" and p1_move == "block":
+            print("You blocked their bullet!")
+        elif p2_move == "shoot" and p1_move == "reflect":
+            print("You reflected their bullet!")
+            player2.die()
+        elif p2_move == "shoot":
+            print("You were sniped!")
+            player1.die()
+        elif p1_move == "shoot":
+            print("You tried to shoot, but they were too far away!")
+        else:
+            pass
+    elif p1_move == "shoot" and p2_move == "block":
+        print("Your bullet was blocked!")
+    elif p2_move == "shoot" and p1_move == "block":
+        print("You blocked their bullet!")
+    elif p2_move == "shoot" and p1_move == "reflect":
+        print("You reflected their bullet!")
+        player2.die()
+    elif p1_move == "shoot" and p2_move == "shoot":
+        print("You both shot each other!")
+        player1.die()
+        player2.die()
+    elif p1_move == "shoot":
+        print("You shot them!")
+        player2.die()
+    elif p2_move == "shoot":
+        print("You were shot!")
         player1.die()
     else:
         pass
